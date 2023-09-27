@@ -1,141 +1,147 @@
 library(ggplot2)
 library(MASS)
+library(gridExtra)
+library(png)
 
-#' calc lm, and return all the variable related to it.
-#'
-#' @param formula A formula
-#' @param data A data frame
+Linreg <- function(formula, data, qr = FALSE) {
+  linreg <- list(coefficients = NULL,
+                 residuals = NULL,
+                 fitted_values = NULL,
+                 formula = formula,
+                 data = data,
+                 qr = qr,
+                 data_name = substitute(data),
+                 X_name = NULL)
+  class(linreg) <- "Linreg"
+  return(linreg)
+}
 
-#' @examples
-#' # example code
-#' data(iris)
-#' mod_object <- linreg(Petal.Length~Species, data = iris)
-#' or even this
-#' mod_object <- linreg(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data = iris)
-#' 
-#' @return The linreg S3 class
-linreg <- function(formula, data, qr = FALSE) {
-  # assign the class name
-  class(linreg_object) <- "linreg"
+lm_new <- function(obj) {
+  formula<- obj$formula
+  data <- obj$data
   
-  # Create the design matrix X
-  m <- model.matrix(formula - 1, data)
-  
-  # get all the variable of the formula
-  # dependent variables number will always be 1
-  # independent variables number may >= 1
   vars <- all.vars(formula)
   
   # get the number of variables
   n <- length(all.vars(formula))
   
-  # get the dependent variables name and data
+  y_formula <- paste("~",vars[1],"-1")
   y_name <- vars[1]
-  y_data <- data[vars[1]]
+  y_data <- model.matrix(as.formula(y_formula),data)
   
-  # get the independent variables name and data
+  # remove XXX in the following model.matrix function call 
+  X_formula <- update(formula,~ . - 1)
+  
+  # Create the design matrix X
   X_name <- vars[2:n]
-  X_data <- data[vars[2:n]]
+  obj$X_name <- X_name
+  X_data <- model.matrix(X_formula, data)
   
   # transpose of X_data
   X_data_t = t(as.matrix(X_data))
   
   # calc coef here
-  
   # use ginv to calc Generalized Inverse of a Matrix instead of solve
   # because solve will generate singular problem
   
-  beta <- tcrossprod(ginv(crossprod(x = as.matrix(X_data_t))),X_data_t)
+  coefficients <- crossprod(tcrossprod(
+    ginv(
+      crossprod(x = as.matrix(X_data_t))
+    ),X_data_t),y_data)
   
-  # calc residuals here
+  obj$coefficients <- coefficients
   
   
+  # calc fitted values 
+  fitted_values <- crossprod(X_data_t,coefficients)
+  obj$fitted_values <- fitted_values 
   
-
-  # Create a linreg object, and return
-  linreg_object <- list(
-    coefficients = coef(fit),
-    residuals = residuals(fit),
-    fitted.values = fitted(fit),
-    call = match.call(),
-    formula = formula,
-    data = data,
-    terms = terms(fit)
-  )
+  # calc residuals
+  residuals <- y_data - obj$fitted_values
+  obj$residuals <- residuals
   
-  return(linreg_object)
+  # calc degrees of freedom
+  df <- nrow(data) - n
+  
+  # calc residual variance
+  fitted_values_t <- t(as.matrix(fitted_values))
+  residual_var <- crossprod(x = as.matrix(fitted_values_t)) / df
+  
+  # calc variance of the regression coefficients
+  var_b_hat <- crossprod(residual_var,ginv(
+    crossprod(x = as.matrix(X_data_t))
+  ))
+  return(obj)
 }
 
-#' return resid that restored in linreg object
-#'
-#' @param x linreg class object
-#'
-#' @return resid
-resid <- function(x){
-  if (!inherits(x, "linreg")) {
-    stop("Input object is not of class 'linreg'")
-  }
-  
-  return(x$linreg_object.residuals)
+print <- function(obj) {
+  cat("Call:\n",
+      "lim(formula = ",Reduce(paste, deparse(obj$formula)),",data =",obj$data_name,"\n\n",
+      "Coefficients:\n",
+      obj$X_name,"\n",
+      obj$coefficients
+      )
 }
 
-#' return pred that restored in linreg object
-#'
-#' @param x linreg class object
-#'
-#' @return pred
-pred <- function(x){
-  if (!inherits(x, "linreg")) {
-    stop("Input object is not of class 'linreg'")
-  }
+get_png <- function(filename) {
+  grid::rasterGrob(png::readPNG(filename), interpolate = TRUE)
 }
 
-#' return coef that restored in linreg object
-#'
-#' @param x linreg class object
-#'
-#' @return coef
-coef <- function(x){
-  if (!inherits(x, "linreg")) {
-    stop("Input object is not of class 'linreg'")
-  }
+plot <- function(obj) {
+  FV <- as.data.frame(obj$fitted_values)
+  RS1 <- as.data.frame(obj$residuals)
+  K <- data.frame(FV,RS1)
+  p1 <- ggplot(data = K,mapping = aes_string(x = names(K)[1], y = names(K)[2])) + 
+         geom_point() +
+         theme(plot.title = element_text(hjust = 0.5)) + 
+         labs(
+            title = "Residuals vs Fitted",
+            x = "Fitted values \n lm(Petal.Length ~ Species)",
+            y = "Residuals"
+          ) 
+   
+  # calc the mean of residuals-> miu
+  miu <- mean(RS1[[names(RS1)[1]]]) 
+  
+  sigma <- sqrt(sum((RS1 - miu) ^ 2) / nrow(RS1))
+  
+  RS2 <- abs((RS1 - miu) / sigma)
+  K <- data.frame(FV,RS2)
+  
+  p2 <- ggplot(data = K,mapping = aes_string(x = names(K)[1], y = names(K)[2])) + 
+    geom_point() +
+    theme(plot.title = element_text(hjust = 0.5)) + 
+    labs(
+      title = "Scale−Location",
+      x = "Fitted values \n lm(Petal.Length ~ Species)",
+      y = "$\\sqrt(Standard Residuals)$"
+    ) 
+  
+  l <- get_png("./img/LiU.png")
+  
+  p2 +
+    annotation_custom(l, xmin = 6.5, xmax = 8.5, ymin = -5, ymax = -8.5) +
+    coord_cartesian(clip = "off") +
+    theme(plot.margin = unit(c(1, 1, 3, 1), "lines"))
+  
+  grid.arrange(p1, p2, ncol = 1)
+  
+
+  
 }
 
-#' print summary informationof linreg object
-#'
-#' @param x linreg class object
-summary <- function(x){
-  if (!inherits(x, "linreg")) {
-    stop("Input object is not of class 'linreg'")
-  }
+resid <- function(obj){
+  return(obj$residuals)
 }
 
-# Summary function for linreg class
-summary.linreg <- function(object, ...) {
-  cat("Custom Linear Regression Model\n")
-  cat("\nCall:\n")
-  print(object$call)
-  
-  cat("\nCoefficients:\n")
-  print(object$coefficients)
-  
-  cat("\nResiduals:\n")
-  print(object$residuals)
-  
-  cat("\nFitted Values:\n")
-  print(object$fitted.values)
-  
-  cat("\nTerms:\n")
-  print(object$terms)
-  
-  return(invisible(NULL))
+pred <- function(obj){
+  return(obj$fitted_values)
 }
 
+coef <- function(obj){
+  return(obj$coefficients)
+}
 
-
-# Define a method to print information
-print.linreg <- function(obj) {
-  #cat("Call:\n","m(formula = ",Reduce(paste, deparse(obj$formula)),"data = ",deparse(substitute(obj$data)))
-  k<- deparse(substitute(obj$data))
-  cat(k)
+summary <- function(obj){
+  
 }
