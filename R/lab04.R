@@ -117,13 +117,7 @@ plot <- function(obj) {
       y = "$\\sqrt(Standard Residuals)$"
     ) 
   
-  l <- get_png("./img/LiU.png")
-  
-  p2 +
-    annotation_custom(l, xmin = 6.5, xmax = 8.5, ymin = -5, ymax = -8.5) +
-    coord_cartesian(clip = "off") +
-    theme(plot.margin = unit(c(1, 1, 3, 1), "lines"))
-  
+ 
   grid.arrange(p1, p2, ncol = 1)
   
 
