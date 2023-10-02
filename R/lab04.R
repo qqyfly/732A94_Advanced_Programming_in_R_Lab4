@@ -11,20 +11,17 @@
 
 #' A S3 class provide linear regression  that is similar as lm().
 #'
-#' Author: Qinyuqn Qi
 #' @name linreg
 #' @param formula Formula
 #' @param data Dataframe
-#' @param qr Boolean
 #' @return linreg object(list) contain all the calculated values regarding the linear regression
 #' @importFrom stats model.matrix pt
 #' @export 
-linreg <- function(formula, data, qr = FALSE) {
+linreg <- function(formula, data) {
   
   # object to save all the meta data and calculated values
   obj <- list(formula = formula,
               data = data,
-              qr = qr,
               data_name = substitute(data),
               coefficients = NULL,
               residuals = NULL,
@@ -96,18 +93,18 @@ linreg <- function(formula, data, qr = FALSE) {
   obj$p_values <- p_values
   
   #----------------END OF INIT CODE----------------
-  return(obj)
+  obj
 }
 
 #' print out formula, data and Coefficients of current linear regression.
 #'
-#' Author: Qinyuan Qi
-#' @param obj linreg object
+#' @param x linreg object
+#' @param ... other objects
 #' @export print.linreg
 #' @export 
 
-print.linreg <- function(obj) {
-  
+print.linreg <- function(x,...) {
+  obj <- x
   cat("Call:\n")
   data_str <- paste("data = ",obj$data_name, ")", sep="")
   formula_str <- paste("linreg(formula =",deparse(obj$formula))
@@ -124,7 +121,6 @@ print.linreg <- function(obj) {
 
 #' get PNG file(used in plot())
 #' private function
-#' Author: Koushik Pilla
 #' @param filename png file name used in plot
 get_png <- function(filename) {
   grid::rasterGrob(readPNG(filename), interpolate = TRUE)
@@ -132,19 +128,19 @@ get_png <- function(filename) {
 
 #' plot 2 graphs with Liu Logo and customized liu theme.
 #'
-#' Author: Koushik Pilla
-#' @param obj linreg object
+#' @param x linreg objec
+#' @param ... graphical parameters to plot
 #' 
-#' @importFrom ggplot2 ggplot geom_path geom_point aes_string aes theme element_text labs theme_void annotation_custom
+#' @importFrom ggplot2 ggplot geom_path geom_point aes_string aes theme element_text element_rect element_line stat_summary labs theme_void annotation_custom
 #' @importFrom png readPNG
 #' @importFrom grid rasterGrob
 #' @importFrom gridExtra  grid.arrange
 #' 
 #' @export plot.linreg
 #' @export 
-
-plot.linreg <- function(obj) {
-  
+#' 
+plot.linreg <- function(x, ...) {
+  obj <- x
   linkoping_theme <-
     theme(
       panel.background = element_rect(fill = "white",
@@ -158,7 +154,7 @@ plot.linreg <- function(obj) {
     )
   
   l <- get_png("LiU.png")
-
+ 
   # setup data frame for 1st graph
   fitted_values <- as.data.frame(obj$fitted_values)
   residuals <- as.data.frame(obj$residuals)
@@ -202,45 +198,43 @@ plot.linreg <- function(obj) {
 
 #' get fitted value
 #'
-#' Author: Koushik Pilla
 #' @param obj linreg object
-#' @export pred.linreg
+#' @export pred
 #' @export
-
-pred.linreg <- function(obj){
+pred <- function(obj){
   return(obj$fitted_values)
 }
 
 #' get residuals
 #'
-#' Author: Koushik Pilla
 #' @param obj linreg object
-#' @export resid.linreg
-#' @export 
-
-resid.linreg <- function(obj){
-  return(obj$residuals)
+#' @export resid
+#' @export
+ 
+resid <- function(obj){
+  obj$residuals
 }
 
 #' get coefficients values
 #'
-#' Author: Koushik Pilla
 #' @param obj linreg object
-#' @export coef.linreg
-#' @export 
+#' @export coef
+#' @export
 
-coef.linreg <- function(obj){
-  return(obj$coefficients)
+coef <- function(obj){
+  obj$coefficients
 }
+
 
 #' print out summary which is simiar as lm()
 #'
-#' Author: Koushik Pilla
-#' @param obj linreg object
+#' @param object linreg object
+#' @param ... other objects
 #' @importFrom methods show
 #' @export summary.linreg
 #' @export 
-summary.linreg <- function(obj){
+summary.linreg <- function(object, ...){
+  obj <- object
   cat("Call:\n")
   data_str <- paste("data = ",obj$data_name, ")", sep="")
   formula_str <- paste("linreg(formula =",deparse(obj$formula))
@@ -268,7 +262,6 @@ summary.linreg <- function(obj){
 
 #' return confidence indicator[. * ** ***] according to the value X
 #'
-#' Author: Qinyuqn Qi
 #' @param x numeric
 #' 
 check_p_value <- function(x){

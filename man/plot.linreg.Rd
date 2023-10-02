@@ -4,11 +4,13 @@
 \alias{plot.linreg}
 \title{plot 2 graphs with Liu Logo and customized liu theme.}
 \usage{
-\method{plot}{linreg}(obj)
+\method{plot}{linreg}(x, ...)
 }
 \arguments{
-\item{obj}{linreg object}
+\item{x}{linreg objec}
+
+\item{...}{graphical parameters to plot}
 }
 \description{
-Author: Koushik Pilla
+plot 2 graphs with Liu Logo and customized liu theme.
 }

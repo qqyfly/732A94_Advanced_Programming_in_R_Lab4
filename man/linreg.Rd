@@ -4,18 +4,16 @@
 \alias{linreg}
 \title{A S3 class provide linear regression  that is similar as lm().}
 \usage{
-linreg(formula, data, qr = FALSE)
+linreg(formula, data)
 }
 \arguments{
 \item{formula}{Formula}
 
 \item{data}{Dataframe}
-
-\item{qr}{Boolean}
 }
 \value{
 linreg object(list) contain all the calculated values regarding the linear regression
 }
 \description{
-Author: Qinyuqn Qi
+A S3 class provide linear regression  that is similar as lm().
 }

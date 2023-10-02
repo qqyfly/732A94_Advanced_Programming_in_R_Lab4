@@ -7,5 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(lab04)
+library(testthat)
 
 test_check("lab04")

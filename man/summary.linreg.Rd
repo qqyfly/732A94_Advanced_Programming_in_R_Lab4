@@ -4,11 +4,13 @@
 \alias{summary.linreg}
 \title{print out summary which is simiar as lm()}
 \usage{
-\method{summary}{linreg}(obj)
+\method{summary}{linreg}(object, ...)
 }
 \arguments{
-\item{obj}{linreg object}
+\item{object}{linreg object}
+
+\item{...}{other objects}
 }
 \description{
-Author: Koushik Pilla
+print out summary which is simiar as lm()
 }

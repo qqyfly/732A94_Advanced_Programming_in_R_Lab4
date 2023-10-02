@@ -4,11 +4,13 @@
 \alias{print.linreg}
 \title{print out formula, data and Coefficients of current linear regression.}
 \usage{
-\method{print}{linreg}(obj)
+\method{print}{linreg}(x, ...)
 }
 \arguments{
-\item{obj}{linreg object}
+\item{x}{linreg object}
+
+\item{...}{other objects}
 }
 \description{
-Author: Qinyuan Qi
+print out formula, data and Coefficients of current linear regression.
 }
