@@ -45,32 +45,32 @@ linreg_mod <- linreg(Petal.Length ~ Species, data = iris)
 
 ## print a Linreg object
 ```{r}
-print(linreg_mod)
+#print(linreg_mod)
 ```
 
 ## plot a Linreg object
 ```{r}
-plot(linreg_mod)
+#plot(linreg_mod)
 ```
 
 ## get residuals of regression model
 ```{r}
-resid(linreg_mod)
+#resid(linreg_mod)
 ```
 
 ## get fitted values of regression model
 ```{r}
-pred(linreg_mod)
+#pred(linreg_mod)
 ```
 
 ## get coef values of regression model
 This function use the pre created linreg object as a parameter, and return the coef values of regression model.
 ```{r}
-coef(linreg_mod)
+#coef(linreg_mod)
 ```
 
 ## print out the summary of regression model
 This function use the pre created linreg object as a parameter, and print out the formula,data name,fitted values,coefficients,Std. Error,p-value,t-value and corresponding visual indicators using p-value.
 ```{r}
-summaery(linreg_mod)
+#summaery(linreg_mod)
 ```
