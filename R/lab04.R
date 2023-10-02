@@ -12,21 +12,12 @@
 #' A S3 class provide linear regression  that is similar as lm().
 #'
 #' Author: Qinyuqn Qi
+#' @name linreg
 #' @param formula Formula
 #' @param data Dataframe
 #' @param qr Boolean
 #' @return linreg object(list) contain all the calculated values regarding the linear regression
-#' @export linreg
 #' @export 
-#' 
-#' 
-# Document the myclass class
-#' @export
-#' @name myclass
-#' @title My S3 Class
-#' @description This is a simple S3 class for demonstration purposes.
-#' @field data A numeric vector.
-
 linreg <- function(formula, data, qr = FALSE) {
   
   # object to save all the meta data and calculated values
@@ -109,10 +100,11 @@ linreg <- function(formula, data, qr = FALSE) {
 
 #' print out formula, data and Coefficients of current linear regression.
 #'
-#' Author: 
+#' Author: Qinyuan Qi
 #' @param obj linreg object
-#' @export print.linreg 
+#' @export print.linreg
 #' @export 
+
 print.linreg <- function(obj) {
   
   cat("Call:\n")
@@ -142,7 +134,8 @@ get_png <- function(filename) {
 #' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export plot.linreg
-#' @export
+#' @export 
+
 plot.linreg <- function(obj) {
   
   linkoping_theme <-
@@ -223,24 +216,26 @@ plot.linreg <- function(obj) {
   grid.arrange(p1, p2, p3,heights = c(.46,.46,.08))
 }
 
-#' get residuals
-#'
-#' Author: Koushik Pilla
-#' @param obj linreg object
-#' @export resid.linreg 
-#' @export
-resid.linreg <- function(obj){
-  return(obj$residuals)
-}
-
 #' get fitted value
 #'
 #' Author: Koushik Pilla
 #' @param obj linreg object
-#' @export pred.linreg 
+#' @export pred.linreg
 #' @export
+
 pred.linreg <- function(obj){
   return(obj$fitted_values)
+}
+
+#' get residuals
+#'
+#' Author: Koushik Pilla
+#' @param obj linreg object
+#' @export resid.linreg
+#' @export 
+
+resid.linreg <- function(obj){
+  return(obj$residuals)
 }
 
 #' get coefficients values
@@ -248,7 +243,7 @@ pred.linreg <- function(obj){
 #' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export coef.linreg
-#' @export
+#' @export 
 coef.linreg <- function(obj){
   return(obj$coefficients)
 }
@@ -258,7 +253,7 @@ coef.linreg <- function(obj){
 #' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export summary.linreg
-#' @export
+#' @export 
 summary.linreg <- function(obj){
   cat("Call:\n")
   data_str <- paste("data = ",obj$data_name, ")", sep="")

@@ -10,5 +10,5 @@
 \item{obj}{linreg object}
 }
 \description{
-Author:
+Author: Koushik Pilla
 }

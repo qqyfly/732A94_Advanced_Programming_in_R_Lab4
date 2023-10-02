@@ -7,17 +7,22 @@ Authors@R: c(person("Qinyuan Qi", "Developer", role = c("aut", "cre"), email = "
              person("Satya Sai Naga Jaya Koushik Pilla", "Developer", role = c("aut")))
 Description: Lab 04 Assignment of [Advanced R Proramming].
 License: MIT + file LICENSE
+Encoding: UTF-8
 Suggests: 
     knitr,
     rmarkdown,
-    MASS
+    MASS,
+    testthat
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10),
+Imports:
     ggplot2,
     gridExtra,
     methods,
     png,
-    testthat
+    testthat,
+    stats,
+    grid
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3

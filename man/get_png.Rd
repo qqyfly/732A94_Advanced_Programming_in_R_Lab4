@@ -4,7 +4,7 @@
 \alias{get_png}
 \title{get PNG file(used in plot())
 private function
-Author:}
+Author: Koushik Pilla}
 \usage{
 get_png(filename)
 }
@@ -14,5 +14,5 @@ get_png(filename)
 \description{
 get PNG file(used in plot())
 private function
-Author:
+Author: Koushik Pilla
 }

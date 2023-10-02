@@ -10,5 +10,5 @@ check_p_value(x)
 \item{x}{numeric}
 }
 \description{
-Author:
+Author: Qinyuqn Qi
 }
