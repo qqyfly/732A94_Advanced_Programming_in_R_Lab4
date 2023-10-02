@@ -126,6 +126,20 @@ get_png <- function(filename) {
   grid::rasterGrob(readPNG(filename), interpolate = TRUE)
 }
 
+#' customize Liu theme (used in plot())
+#' private theme
+#'
+linkoping_theme <- theme(
+    panel.background = element_rect(fill = "white",
+                                    colour = "lightblue",
+                                    size = 0.5, linetype = "solid"),
+    panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                    colour = "white"), 
+    panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                    colour = "white"),
+    plot.title = element_text(color="blue2", face="bold", size="14",hjust = 0.5)
+)
+
 #' plot 2 graphs with Liu Logo and customized liu theme.
 #'
 #' @param x linreg objec
@@ -141,18 +155,7 @@ get_png <- function(filename) {
 #' 
 plot.linreg <- function(x, ...) {
   obj <- x
-  linkoping_theme <-
-    theme(
-      panel.background = element_rect(fill = "white",
-                                      colour = "lightblue",
-                                      size = 0.5, linetype = "solid"),
-      panel.grid.major = element_line(size = 0.5, linetype = 'solid',
-                                      colour = "white"), 
-      panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                      colour = "white"),
-      plot.title = element_text(color="blue2", face="bold", size="14",hjust = 0.5)
-    )
-  
+
   l <- get_png("LiU.png")
  
   # setup data frame for 1st graph
