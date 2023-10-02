@@ -131,7 +131,7 @@ print.linreg <- function(obj) {
 
 #' get PNG file(used in plot())
 #' private function
-#' Author: 
+#' Author: Koushik Pilla
 #' @param filename png file name used in plot
 get_png <- function(filename) {
   grid::rasterGrob(readPNG(filename), interpolate = TRUE)
@@ -139,7 +139,7 @@ get_png <- function(filename) {
 
 #' plot 2 graphs with Liu Logo and customized liu theme.
 #'
-#' Author: 
+#' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export plot.linreg
 #' @export
@@ -225,7 +225,7 @@ plot.linreg <- function(obj) {
 
 #' get residuals
 #'
-#' Author: 
+#' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export resid.linreg 
 #' @export
@@ -235,7 +235,7 @@ resid.linreg <- function(obj){
 
 #' get fitted value
 #'
-#' Author: 
+#' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export pred.linreg 
 #' @export
@@ -245,7 +245,7 @@ pred.linreg <- function(obj){
 
 #' get coefficients values
 #'
-#' Author: 
+#' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export coef.linreg
 #' @export
@@ -255,7 +255,7 @@ coef.linreg <- function(obj){
 
 #' print out summary which is simiar as lm()
 #'
-#' Author: 
+#' Author: Koushik Pilla
 #' @param obj linreg object
 #' @export summary.linreg
 #' @export
@@ -287,7 +287,7 @@ summary.linreg <- function(obj){
 
 #' return confidence indicator[. * ** ***] according to the value X
 #'
-#' Author: 
+#' Author: Qinyuqn Qi
 #' @param x numeric
 #' 
 check_p_value <- function(x){
