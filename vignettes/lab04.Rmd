@@ -1,0 +1,76 @@
+---
+title: "lab04"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{lab04}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Overview
+
+The `lab04` package provides a lightweight framework for simple linear regression in R. This vignette serves as a guide to understanding and using the main functions provided by the package.
+
+# Installation
+
+To install the `lab04` package, use the following commands:
+
+```{r install-linreg-package, eval=FALSE}
+devtools::install_github("yourusername/lab04")
+```
+
+# Linear Regression with Linreg
+
+The core function in the Linreg package is linreg S3 class, which initializes a linear regression model with all the caculated values stored as a list. 
+
+This example demonstrates how to create a linreg object and how to use all the exported functions of this linreg S3 class.
+
+## Load required libraries
+
+In this step, we need to load the installed library `lab04`.
+The code is showed below.
+
+The required packages will be download and installed automatically.
+
+```{r}
+library(lab04)
+```
+
+## Create a linreg object
+Let's create a simple linear regression model using $iris$ dataset with the formula: $Petal.Length \thicksim Species$.
+
+```{r}
+linreg_mod <- linreg(Petal.Length ~ Species, data = iris)
+```
+
+## print a Linreg object
+```{r}
+print(linreg_mod)
+```
+
+## plot a Linreg object
+```{r}
+plot(linreg_mod)
+```
+
+## get residuals of regression model
+```{r}
+resid(linreg_mod)
+```
+
+## get fitted values of regression model
+```{r}
+pred(linreg_mod)
+```
+
+## get coef values of regression model
+This function use the pre created linreg object as a parameter, and return the coef values of regression model.
+```{r}
+coef(linreg_mod)
+```
+
+## print out the summary of regression model
+This function use the pre created linreg object as a parameter, and print out the formula,data name,fitted values,coefficients,Std. Error,p-value,t-value and corresponding visual indicators using p-value.
+```{r}
+summaery(linreg_mod)
+```
