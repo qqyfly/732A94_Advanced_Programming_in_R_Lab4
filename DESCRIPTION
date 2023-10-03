@@ -2,7 +2,7 @@ Package: lab04
 Type: Package
 Title: Lab 04 Assignment of [Advanced R Proramming]
 Version: 1.0
-Date: 2023-09-28
+Date: 2023-10-02
 Authors@R: c(person("Qinyuan Qi", "Developer", role = c("aut", "cre"), email = "qiqinyuan@gmail.com"),
              person("Satya Sai Naga Jaya Koushik Pilla", "Developer", role = c("aut")))
 Description: Lab 04 Assignment of [Advanced R Proramming].
