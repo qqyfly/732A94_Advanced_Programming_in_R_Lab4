@@ -75,7 +75,7 @@ This function use the pre created linreg object as a parameter, and return the c
 coef(linreg_mod)
 ```
 
-## print out the summary of regression model
+## Print out the summary of regression model
 This function use the pre created linreg object as a parameter, and print out the formula,data name,fitted values,coefficients,Std. Error,p-value,t-value and corresponding visual indicators using p-value.
 
 ```r
