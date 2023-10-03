@@ -51,7 +51,6 @@ rsconnect/
 # RStudio Project File
 *.Rproj
 inst/doc
-/doc/
 /Meta/
 
 # Mac File
