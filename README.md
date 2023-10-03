@@ -40,14 +40,14 @@ Let's create a simple linear regression model using $iris$ dataset with the form
 linreg_mod <- linreg(Petal.Length ~ Species, data = iris)
 ```
 
-## print a Linreg object
+## Print a Linreg object
 This function use the pre created linreg object as a parameter, and print out some information of the regression model.
 
 ```r
 print(linreg_mod)
 ```
 
-## plot a Linreg object
+## Plot a Linreg object
 This function plot 2 graphs and show a customized liu logo and liu theme
 
 ```r
