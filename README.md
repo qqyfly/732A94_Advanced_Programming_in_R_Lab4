@@ -54,21 +54,21 @@ This function plot 2 graphs and show a customized liu logo and liu theme
 plot(linreg_mod)
 ```
 
-## get residuals of regression model
+## Get residuals of regression model
 This function use the pre created linreg object as a parameter, and return the residuals values of regression model.
 
 ```r
 resid(linreg_mod)
 ```
 
-## get fitted values of regression model
+## Get fitted values of regression model
 This function use the pre created linreg object as a parameter, and return the fitted values of regression model.
 
 ```r
 pred(linreg_mod)
 ```
 
-## get coef values of regression model
+## Get coef values of regression model
 This function use the pre created linreg object as a parameter, and return the coef values of regression model.
 
 ```r

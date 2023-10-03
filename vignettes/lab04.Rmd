@@ -43,37 +43,37 @@ Let's create a simple linear regression model using $iris$ dataset with the form
 linreg_mod <- linreg(Petal.Length ~ Species, data = iris)
 ```
 
-## print a Linreg object
+## Print a Linreg object
 This function use the pre created linreg object as a parameter, and print out some information of the regression model.
 ```{r}
 print(linreg_mod)
 ```
 
-## plot a Linreg object
+## Plot a Linreg object
 This function plot 2 graphs and show a customized liu logo and liu theme
 ```{r}
 plot(linreg_mod)
 ```
 
-## get residuals of regression model
+## Get residuals of regression model
 This function use the pre created linreg object as a parameter, and return the residuals values of regression model.
 ```{r}
 resid(linreg_mod)
 ```
 
-## get fitted values of regression model
+## Get fitted values of regression model
 This function use the pre created linreg object as a parameter, and return the fitted values of regression model.
 ```{r}
 pred(linreg_mod)
 ```
 
-## get coef values of regression model
+## Get coef values of regression model
 This function use the pre created linreg object as a parameter, and return the coef values of regression model.
 ```{r}
 coef(linreg_mod)
 ```
 
-## print out the summary of regression model
+## Print out the summary of regression model
 This function use the pre created linreg object as a parameter, and print out the formula,data name,fitted values,coefficients,Std. Error,p-value,t-value and corresponding visual indicators using p-value.
 ```{r}
 summary(linreg_mod)
