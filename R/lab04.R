@@ -189,7 +189,7 @@ plot.linreg <- function(x, ...) {
     labs(
       title = "Scale Location",
       x = "Fitted values \n lm(Petal.Length ~ Species)",
-      y = expression(paste(sigma,sqrt(abs("Standard Residuals"))))
+      y = expression(paste(sqrt(abs("Standard Residuals"))))
     )
 
   # draw 3rd graph (LOGO)
